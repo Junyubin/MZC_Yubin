@@ -1,0 +1,7 @@
+#! /bin/bash
+
+unzip /opt/ml/input/data/input_data/coco128.zip -d /opt/ml/input/data/input_data/
+
+python3 /usr/src/app/train.py --img 260 --batch 4 --epochs 1 --data /opt/ml/input/data/input_data/custom_data.yaml
+
+cp -r /usr/src/app/runs/train/exp /opt/ml/model

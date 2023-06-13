@@ -1,0 +1,20 @@
+## 이미지 복사
+FROM ultralytics/yolov5:latest-cpu
+
+## 경로 설정
+ENV PATH="/usr/src/app:${PATH}"
+ENV PATH="/opt/code:${PATH}"
+
+## 명령어 설치 및 업데이트
+RUN apt-get update && apt-get install -y --no-install-recommends --allow-unauthenticated jq
+
+## yolov5 reguirements 패키지 설치
+RUN pip install -r requirements.txt
+
+## AWS CLI 버전 설정
+RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && apt-get install unzip
+RUN unzip awscliv2.zip
+RUN ./aws/install
+
+## 학습 실행파일 복사
+COPY train /opt/code/train
